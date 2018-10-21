@@ -37,8 +37,6 @@ public class Calculadora extends Activity implements View.OnKeyListener {
         zerandoVariaveisGlonais();
         txtInfo.setText("Calculando...");
         lerETratarDados();
-        txtDados.setText("");
-        txtVecolicadade.setText("");
         calcularTempo();
     }
 
@@ -92,6 +90,13 @@ public class Calculadora extends Activity implements View.OnKeyListener {
         txt = txt + "Agora é: " + c.getTime() + ".\nTérmino: " + Date() + ".\n";
         txtInfo.setText(txt);
     }
+    public void limparTela(View v){
+        txtDados.setText("");
+        txtVecolicadade.setText("");
+        txtInfo.setText("");
+        spinnerDados.setSelection(0);
+        spinnerVelocidade.setSelection(0);
+    }
 
     private java.util.Date Date() {
         c.add(Calendar.YEAR, (int) aa);
@@ -102,29 +107,28 @@ public class Calculadora extends Activity implements View.OnKeyListener {
         return c.getTime();
     }
 
-    void SegundosemMin() {
+    private void SegundosemMin() {
         mm = ss / 60;
         ss = ss % 60;
         Horas();
     }
 
-    void Horas() {
+    private void Horas() {
         hh = mm / 60;
         mm = mm % 60;
         Dias();
     }
 
-    void Dias() {
+    private void Dias() {
         dd = hh / 24;
         hh = hh % 24;
         Anos();
     }
 
-    void Anos() {
+    private void Anos() {
         aa = dd / 365;
         dd = dd % 365;
     }
-
 
     private void criadorDeSpinner() {
         listaDados = Arrays.asList("MB", "GB", "TB");
