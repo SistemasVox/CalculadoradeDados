@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Calculadora de Dados</string>
+    <string name="titulo">Sistemas VOX!</string>
+    <string name="titulo2">Calculadora de Dados</string>
+    <string name="button1">Hoje</string>
+    <string name="button2">Calcular</string>
+    <string name="txtInfor">Bem - Vindo ao Sistema VOX!\nEscolha umas das opções.</string>
+    <string name="title_activity_calculadora">Calculadora</string>
+    <string name="txtQTD">Quantidade:</string>
+    <string name="txtVelo">Velocidade:</string>
+    <string name="txtInfoCal">Sistemas VOX!\n\nInformações serão escritas aqui após cliclar no botão Calcular.</string>
+</resources>
