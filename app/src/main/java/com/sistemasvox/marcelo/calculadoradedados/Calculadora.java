@@ -18,7 +18,7 @@ public class Calculadora extends Activity implements View.OnKeyListener {
 
     private static final String TAG = "teste";
     private List<String> listaDados, listaVelocidade;
-    private TextView txtInfo;
+    private TextView txtInfo, txtLogo;
     private EditText txtDados, txtVecolicadade;
     private Spinner spinnerDados, spinnerVelocidade;
     private double kbs, kb;
@@ -30,14 +30,39 @@ public class Calculadora extends Activity implements View.OnKeyListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculadora);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        txtLogo = findViewById(R.id.txtTitulo);
+        txtLogo.setEnabled(false);
         criadorDeSpinner();
     }
 
     public void preparacaoInicial(View v) {
         zerandoVariaveisGlonais();
-        txtInfo.setText("Calculando...");
+
+        txtLogo.setEnabled(true);
+        //esperar();
         lerETratarDados();
         calcularTempo();
+        esperar();
+
+    }
+
+    private void esperar() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            txtInfo.setText(":D obrigado por usar o Sistema Vox.");
+                            Thread.sleep(5000);
+                        } catch (Exception e) {
+                            txtInfo.setText("Erro na Thread, Line 42. \n" + e.getMessage());
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
     private void zerandoVariaveisGlonais() {
@@ -90,7 +115,8 @@ public class Calculadora extends Activity implements View.OnKeyListener {
         txt = txt + "Agora é: " + c.getTime() + ".\nTérmino: " + Date() + ".\n";
         txtInfo.setText(txt);
     }
-    public void limparTela(View v){
+
+    public void limparTela(View v) {
         txtDados.setText("");
         txtVecolicadade.setText("");
         txtInfo.setText("");
