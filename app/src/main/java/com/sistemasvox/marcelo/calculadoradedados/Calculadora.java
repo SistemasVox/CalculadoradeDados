@@ -17,13 +17,17 @@ import java.util.List;
 public class Calculadora extends Activity implements View.OnKeyListener {
 
     private static final String TAG = "teste";
+    private static TextView txtInfo, txtLogo;
     private List<String> listaDados, listaVelocidade;
-    private TextView txtInfo, txtLogo;
     private EditText txtDados, txtVecolicadade;
     private Spinner spinnerDados, spinnerVelocidade;
     private double kbs, kb;
     private long aa, dd, hh, mm, ss;
     private GregorianCalendar c;
+
+    public static void mensagem(String s) {
+        txtInfo.setText(s);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,7 @@ public class Calculadora extends Activity implements View.OnKeyListener {
         zerandoVariaveisGlonais();
 
         txtLogo.setEnabled(true);
-        //esperar();
+
         lerETratarDados();
         calcularTempo();
         esperar();
@@ -47,22 +51,9 @@ public class Calculadora extends Activity implements View.OnKeyListener {
     }
 
     private void esperar() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            txtInfo.setText(":D obrigado por usar o Sistema Vox.");
-                            Thread.sleep(5000);
-                        } catch (Exception e) {
-                            txtInfo.setText("Erro na Thread, Line 42. \n" + e.getMessage());
-                        }
-                    }
-                });
-            }
-        }).start();
+        //new Mensagem(":D obrigado por usar o Sistema Vox.");
+        Mensagem mensagem = new Mensagem(":D obrigado por usar o Sistemas Vox.", 5);
+        new Thread(mensagem).start();
     }
 
     private void zerandoVariaveisGlonais() {
@@ -180,5 +171,28 @@ public class Calculadora extends Activity implements View.OnKeyListener {
             return true;
         }
         return false;
+    }
+    class Mensagem implements Runnable{
+        String msg;
+        int segundos;
+
+        Mensagem(String msg, int segundos){
+            this.msg = msg;
+            this.segundos = segundos;
+        }
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep((segundos * 1000));
+                        txtInfo.setText(msg);
+                    } catch (InterruptedException e) {
+                        txtInfo.setText(e.getMessage());
+                    }
+                }
+            });
+        }
     }
 }
